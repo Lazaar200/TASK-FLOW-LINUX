@@ -9,6 +9,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg     && docker-php-ex
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . .
+RUN mkdir -p /var/www/bootstrap/cache /var/www/storage
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 

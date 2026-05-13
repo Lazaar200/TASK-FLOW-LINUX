@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set +e
 
 # Copier .env si pas présent
 if [ ! -f /var/www/.env ]; then
@@ -17,7 +17,8 @@ done
 echo "MySQL prêt ✅"
 
 # Migrations
-php artisan migrate --force --no-interaction
+php artisan migrate --force --no-interaction 2>/dev/null || true
 
 # Lancer Laravel
 exec php artisan serve --host=0.0.0.0 --port=8000
+
