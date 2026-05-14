@@ -22,8 +22,8 @@ resource "docker_container" "db" {
   image = "mysql:8.0"
 
   env = [
-    "MYSQL_ROOT_PASSWORD=root",
-    "MYSQL_DATABASE=todolist"
+    "MYSQL_ROOT_PASSWORD=${var.mysql_root_password}",
+    "MYSQL_DATABASE=${var.mysql_database}"
   ]
 
   networks_advanced {
@@ -39,7 +39,7 @@ resource "docker_container" "db" {
 # Conteneur Backend Laravel
 resource "docker_container" "backend" {
   name  = "terraform_backend"
-  image = "task-flow-linux-backend"
+  image = var.backend_image
 
   env = [
     "APP_ENV=local",
@@ -47,9 +47,9 @@ resource "docker_container" "backend" {
     "DB_CONNECTION=mysql",
     "DB_HOST=terraform_db",
     "DB_PORT=3306",
-    "DB_DATABASE=todolist",
+    "DB_DATABASE=${var.mysql_database}",
     "DB_USERNAME=root",
-    "DB_PASSWORD=root"
+    "DB_PASSWORD=${var.mysql_root_password}"
   ]
 
   networks_advanced {
