@@ -29,7 +29,12 @@ jobs:
 
       # 3. Créer les dossiers nécessaires à Laravel
       - name: Créer les dossiers Laravel
-        run: mkdir -p backend/bootstrap/cache backend/storage/logs
+        run: |
+          mkdir -p backend/bootstrap/cache
+          mkdir -p backend/storage/logs
+          mkdir -p backend/storage/framework/cache
+          mkdir -p backend/storage/framework/sessions
+          mkdir -p backend/storage/framework/views
 
       # 4. Installer les dépendances Laravel
       - name: Installer les dépendances
