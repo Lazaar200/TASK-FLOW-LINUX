@@ -1,4 +1,5 @@
-version: '3'
+version: '3.8'
+
 services:
 
   frontend:
@@ -7,9 +8,11 @@ services:
       - "4200:4200"
     depends_on:
       - backend
+    restart: unless-stopped
 
   backend:
     build: ./backend
+    container_name: todolist_backend
     ports:
       - "8000:8000"
     depends_on:
@@ -18,41 +21,54 @@ services:
       APP_KEY: base64:CHANGEME_run_artisan_key_generate==
       APP_ENV: local
       APP_DEBUG: "true"
+
       DB_CONNECTION: mysql
       DB_HOST: db
       DB_PORT: 3306
       DB_DATABASE: todolist
       DB_USERNAME: root
       DB_PASSWORD: root
+
       SESSION_DRIVER: file
       CACHE_STORE: file
+
       SANCTUM_STATEFUL_DOMAINS: localhost:4200
       SESSION_DOMAIN: localhost
+
+    restart: unless-stopped
 
   db:
     image: mysql:8.0
     container_name: todolist_db
     restart: always
+
+    command: --default-authentication-plugin=mysql_native_password
+
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: todolist
+
     ports:
       - "3306:3306"
+
     volumes:
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - db_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: todolist_phpmyadmin
     restart: always
+
     ports:
       - "8080:80"
+
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
       PMA_USER: root
       PMA_PASSWORD: root
+
     depends_on:
       - db
 
