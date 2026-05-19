@@ -7,7 +7,7 @@ if [ ! -f /var/www/.env ]; then
 fi
 
 # Générer la clé si vide
-php artisan key:generate --no-interaction --force
+php artisan migrate --force --no-interaction 2>/dev/null || true
 
 # Attendre MySQL
 echo "Attente de MySQL..."

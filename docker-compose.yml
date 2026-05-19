@@ -15,7 +15,7 @@ services:
     depends_on:
       - db
     environment:
-      APP_KEY: base64:CHANGEME_run_artisan_key_generate==
+      APP_KEY: base64:M6lAbe4aoJ96W3UUzBtHzvsg1qYCb55JIjnmEUt2aJQ=
       APP_ENV: local
       APP_DEBUG: "true"
       DB_CONNECTION: mysql
