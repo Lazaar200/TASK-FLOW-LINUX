@@ -5,7 +5,7 @@ import { Category } from '../../shared/models';
 
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
-  private readonly API = 'http://localhost:8000/api';
+  private readonly API = 'http://35.180.127.40:8000/api';
   constructor(private http: HttpClient) {}
   getCategories(): Observable<Category[]> { return this.http.get<Category[]>(`${this.API}/categories`); }
   createCategory(name: string, color: string): Observable<Category> { return this.http.post<Category>(`${this.API}/categories`, { name, color }); }

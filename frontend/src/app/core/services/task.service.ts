@@ -5,7 +5,7 @@ import { Task, CreateTaskDto } from '../../shared/models';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private readonly API = 'http://localhost:8000/api';
+  private readonly API = 'http://35.180.127.40:8000/api';
   constructor(private http: HttpClient) {}
   getTasks(): Observable<Task[]> { return this.http.get<Task[]>(`${this.API}/tasks`); }
   getTask(id: number): Observable<Task> { return this.http.get<Task>(`${this.API}/tasks/${id}`); }
